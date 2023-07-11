@@ -1,0 +1,494 @@
+:root {
+    --primary: #897cff;
+    --secondary: #50418f;
+    --light: #55c03f;
+    --dark: #111111;
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 30px;
+    bottom: 60px;
+    z-index: 99;
+}
+
+h4,
+h5,
+h6,
+.h4,
+.h5,
+.h6 {
+    font-weight: 500 !important;
+}
+
+.text-personal {
+    color: #8d71ff;
+}
+
+::placeholder {
+    color: gray;
+    font-size: 1em;
+    font-style: italic;
+}
+
+/*** Button ***/
+.btn {
+    transition: 0.5s;
+}
+
+.btn.btn-personal {
+    background-color: #7958ff;
+    color: white;
+}
+.btn.btn-personal:hover {
+    background-color: #a38dfb;
+    color: white;
+}
+
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+}
+
+
+/*** Navbar ***/
+.navbar.sticky-top {
+    top: -100px;
+    transition: .5s;
+}
+
+.navbar .navbar-brand {
+    height: 75px;
+}
+
+.navbar .navbar-nav .nav-link {
+    margin-right: 30px;
+    padding: 25px 0;
+    color: black;
+    font-weight: 500;
+    outline: none;
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active {
+    color:#aa53e8;
+}
+
+.navbar .dropdown-toggle::after {
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.navbar .btn:hover {
+    color: #958fdc !important;
+    background:  #958fdc !important;
+}
+
+.nb-custom-color {
+    background-color: #eeeaff!important;
+}
+@media (max-width: 991.98px) {
+    .navbar .navbar-nav .nav-link  {
+        margin-right: 0;
+        padding: 10px 0;
+    }
+
+    .navbar .navbar-nav {
+        border-top: 1px solid #958fdc;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar .nav-item .dropdown-menu {
+        display: block;
+        border: none;
+        margin-top: 0;
+        top: 150%;
+        opacity: 0;
+        visibility: hidden;
+        transition: .5s;
+    }
+
+    .navbar .nav-item:hover .dropdown-menu {
+        top: 100%;
+        color: #958fdc;
+        visibility: visible;
+        transition: 0.5s;
+        opacity: 1;
+    }
+}
+/*** Footer ***/
+
+.bg-custom-color {
+    background-color: #dcd8ff!important;
+}
+
+.footer .btn.btn-link {
+    display: block;
+    margin-bottom: 5px;
+    padding: 0;
+    text-align: left;
+    color: var(--secondary);
+    font-weight: normal;
+    text-transform: capitalize;
+    transition: .3s;
+}
+
+.footer .btn.btn-link::before {
+    position: relative;
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: var(--secondary);
+    margin-right: 10px;
+}
+
+.footer .btn.btn-link:hover {
+    color: var(--primary);
+    letter-spacing: 1px;
+    box-shadow: none;
+}
+
+.footer .btn.btn-square {
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.footer .btn.btn-square:hover {
+    color: #FFFFFF;
+    background: var(--primary);
+}
+
+.footer .copyright {
+    padding: 25px 0;
+    border-top: 1px solid rgba(17, 17, 17, .1);
+}
+
+.footer .copyright a {
+    color: var(--primary);
+}
+
+.footer .copyright a:hover {
+    color: var(--dark);
+}
+
+.form-control {
+    border-color: #958fdc;
+}
+
+.copyright {
+    font-size: small;
+    color: gray;
+}
+
+/* Formulario  */
+.form-contentl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding-top: 40px;
+}
+
+.form-container.blog {
+    background-color:rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 40px;
+    box-shadow: 0 0 13px rgba(0, 0, 0, 0.2);
+    width: 600px;
+}
+
+.form-group h2 {
+    margin-bottom: 40px;
+    text-align:center ;
+    color: black;
+    
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #c4e4ff;
+    color: black!important;
+}
+
+.form {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.form-contentl input[type="submit"] {
+    display: block;
+    margin: 0 auto;
+    background-color: rgb(86, 216, 255)!important;
+    color: white!important;
+    border: none;
+    cursor: pointer;
+
+    font-weight: bold;
+    border-radius: 15px;
+
+}
+
+.form-contentl input[type="submit"]:hover {
+    background-color:rgb(181, 222, 236)!important;
+    transition: 0.3s;
+    color: black!important;
+}
+
+.form-contentl input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(187, 179, 255)!important;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form-contentl input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border: 1px solid #555;
+}
+
+label {
+    font-weight: bold;
+}
+
+.nav-item.rigth {
+    margin-left: auto;
+}
+
+.titulo {
+    font-size: x-large;
+    color:#50418f;
+}
+
+#registro {
+    color:#8d71ff;
+}
+/* Formulario Registro*/
+
+.img-titulo {
+    width: 200px;
+  }
+
+
+/* carousel */
+
+.carousel {
+    margin: 20px auto;
+  }
+  
+  .carousel-img {
+    width: 100%;
+    display: block;
+    align-items: center;
+
+  }
+  
+  .texto-carousel {
+    background-color: #70a8da !important;
+    color: white;
+    margin: 10px;
+    padding: 5px 0px 5px 0px;
+    border-radius: 10px 10px 0px 0px;
+  }
+  
+  
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.76);
+    border-radius: 50%;
+    opacity: 0.8;
+  }
+  
+  .carousel-control-prev-icon {
+    background-image: url("ruta/al/ícono/previo.png");
+  }
+  
+  .carousel-control-next-icon {
+    background-image: url("ruta/al/ícono/siguiente.png");
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.8;
+  }
+  
+  .carousel-control-prev {
+    left: 0;
+  }
+  
+  .carousel-control-next {
+    right: 0;
+  }
+  /* carousel */
+
+  .card-group {
+    width: 100%;
+  }
+  
+  
+  .card-body {
+    padding: 15px;
+    text-align: justify;
+  }
+  
+  .card-img-top {
+    width: 600px;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .card-titulofooter {
+    color: white !important;
+  }
+  
+  
+  .card-custom {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  @media (min-width: 576px) {
+    .card-custom {
+      width: calc(33.3333% - 20px);
+    }
+  }
+  
+  .card-img-top {
+    object-fit: cover;
+    height: 200px;
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  
+.table {
+    margin: 0 auto;
+    width: 100%;
+    border-color: #d2e2f3;
+    border-spacing: 0 10px;
+    margin-bottom: 10px;
+  
+  }
+  
+  .table th {
+    background-color: #56738C;
+    color: #fff;
+  }
+  
+  .table td,
+  .table th {
+    padding: 14px;
+  }
+  
+  
+  .card-producto {
+    display: block !important;
+    height: 300px;
+  
+  }
+  
+  .titulo-producto {
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    color: #1a3247;
+    font-size: large;
+  }
+  
+  
+  .texto-producto {
+    background-color: #dee5e9;
+    text-align: center;
+    color: #1a3247;
+    font-size: medium;
+  }
+  
+  .btn-form {
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  .valor-unitario {
+    width: 150px;
+  }
+  
+  .destacado {
+    color: blue;
+  }
+  
+  /* Resaltar la opción "Pendiente" */
+  #id_estadopedido option[value="Pendiente"] {
+    background-color: rgb(255, 255, 198);
+    font-weight: bold;
+    color: black;
+  }
+  
+  /* Resaltar la opción "En preparación" */
+  #id_estadopedido option[value="En preparacion"] {
+    background-color: rgb(217, 244, 255);
+    font-weight: bold;
+    color: black;
+  }
+  
+  /* Resaltar la opción "Entregado" */
+  #id_estadopedido option[value="Entregado"] {
+    background-color: rgb(213, 255, 213);
+    font-weight: bold;
+    color: black;
+  }
+  
+  /* Resaltar la opción "En despacho" */
+  #id_estadopedido option[value="En Despacho"] {
+    background-color: rgb(221, 221, 221);
+    font-weight: bold;
+    color: black;
+  }
+  
+  /* Resaltar la opción "Cancelado"*/
+  #id_estadopedido option[value="Cancelado"] {
+    background-color: rgb(209, 159, 159);
+    font-weight: bold;
+    color: black;
+  }

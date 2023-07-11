@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Pedidos{% endblock %}
+
+{% block contenido %}
+
+
+{% if messages %}
+  <div class="alert alert-dismissible fade show h2" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <ul class="messages list-unstyled">
+      {% for message in messages %}
+        <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<div class="row align-items-center">
+  <div class="d-flex justify-content-center pt-3">
+    <h3 class="titulo">Lista de Pedidos</h3>
+  </div>
+{% if user.is_staff %}
+  <div class="col-12 d-flex justify-content-end pb-4">
+    <a href="{% url 'crear_cliente' %}" class="btn botoncito btn-outline-personal" role="button">Crear Pedido</a>
+  </div>
+{% endif %}
+</div>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center">Id</th>
+        <th class="text-center">Nombre Cliente</th>
+        <th class="text-center">Rut Cliente</th>
+        <th class="text-center">Estado</th>
+        <th class="text-center">Ver Detalle</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pedido in pedidos %}
+      <tr>
+        <td>{{ pedido.id }}</td>
+        <td>{{ pedido.cart.idcliente.nombre }} {{ pedido.cart.idcliente.apellido }}</td>
+        <td>{{ pedido.cart.idcliente.rut }}</td>
+        <td class="text-center">
+        {% if pedido.estadopedido == 'En preparacion' %}
+          <span class="badge rounded-pill align-middle text-bg-secondary">En preparación</span>
+        {% elif pedido.estadopedido == 'En Despacho' %}
+          <span class="badge rounded-pill align-middle text-bg-info">En despacho</span>
+        {% elif pedido.estadopedido == 'Entregado' %}
+          <span class="badge rounded-pill align-middle text-bg-success">Entregado</span>
+        {% elif pedido.estadopedido == 'Pendiente' %}
+          <span class="badge rounded-pill align-middle text-bg-warning">Pendiente</span>
+        {% elif pedido.estadopedido == 'Cancelado' %}
+        <span class="badge rounded-pill align-middle text-bg-danger">Cancelado</span>
+        {% else %}
+          <span class="badge rounded-pill align-middle text-bg-danger">Error</span>
+        {% endif %}
+        </td>
+        <td class="text-center"><a href="{% url 'pedido_detalle' pedido.id %}" class="btn btn-primary btn-outline-personal text-center">Detalles</a></td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">
+          <div class="alert alert-danger" role="alert">
+            No hay pedidos disponibles para esta vista.
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

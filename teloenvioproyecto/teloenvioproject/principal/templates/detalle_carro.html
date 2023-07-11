@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{ cart.nombre_cart }} {% endblock %}
+
+{% block contenido %}
+
+
+<div class="row align-items-center">
+  <div class="d-flex justify-content-center py-3">
+    <h3 class="titulo">Detalles de {{ cart.nombre_cart }}</h3>
+  </div>
+
+  <div class="col-12 d-flex justify-content-end py-4">
+    <a href="{% url 'productos' %}" class="btn botoncito btn-outline-personal" role="button">Agregar Productos</a>
+    <form method="post" action="{% url 'cart_detalle' cart_id=cart.id %}">
+      {% csrf_token %}
+      <input type="hidden" name="delete_cart" value="{{ cart.id }}">
+      <button type="submit" class="btn botoncito-danger btn-outline-personal">Eliminar cart</button>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Valor Unitario</th>
+        <th>Valor Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for producto in cart.productocart_set.all %}
+      <tr>
+        <td>{{ producto.idproducto }}</td>
+        <td>{{ producto.cantidad_deseada }}</td>
+        <td>{{ producto.idproducto.precio }}</td>
+        <th>${{ producto.valor_total|intcomma }}</th>
+        <td>
+          <form method="post" action="{% url 'cart_detalle' cart_id=cart.id %}">
+          {% csrf_token %}
+          <input type="hidden" name="delete" value="{{ producto.id }}">
+          <button type="submit" class="btn botoncito-danger btn-outline-personal">Eliminar</button>
+        </form>
+      </td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <th>{{ cart.valor_total }}</th>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+<!-- go to pay button-->
+<form method="POST">
+  {% csrf_token %}
+{% comment %} <a href="{% url 'pedido_detalle_ext' pk=pedido.id %}" class="btn botoncito-danger btn-outline-personal">Hacer Pedido</a> {% endcomment %}
+<input type="submit" name="comprar" class="btn-form btn btn-primary ml-2" value="Comprar">
+</form>
+
+
+{% endblock %}

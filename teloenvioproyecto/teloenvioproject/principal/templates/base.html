@@ -1,0 +1,261 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="icon">
+  <!--Bootstrap 5-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- Icon Font Stylesheet -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+  <!--Hoja de estilo personalizada-->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" type="text/css">
+  <title>{% block title %} {% endblock %}</title>
+</head>
+
+<body>
+  {% block navbar %}
+  <!-- Navbar -->
+
+  <!--usuario registrado-->
+  {% if user.is_authenticated %}
+  <nav class="navbar navbar-expand-lg sticky-top p-0 px-4 px-lg-5 nb-custom-color">
+    <a href="#" class="navbar-brand d-flex align-items-center">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'assets/images/logo.png' %}" alt="logo" width="60px" height="auto">
+      </a>
+    </a>
+    <button class="navbar-toggler toggler-personal" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    </div>
+
+
+    <!--usuario staff/admin-->
+    {% if user.is_active and user.is_staff %}
+    <div class="navbar-user">
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto py-4 py-lg-0">
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Gestión</a>
+            <div class="dropdown-menu shadow-sm m-0" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'pedidos' %}">Pedidos</a>
+            <a class="dropdown-item" href="{% url 'gestionprod' %}">Productos</a>
+            <a class="dropdown-item" href="{% url 'panel_usuario' %}">Panel de usuario</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">¿Necesitas ayuda?</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'logout' %}" class="nav-link active">Cerrar sesión</a>
+          </li>
+        </ul>
+      </div>
+ </div>
+    {% else %}
+
+    <nav class="navbar navbar-expand-lg sticky-top p-0 px-4 px-lg-5 nb-custom-color">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'assets/images/logo.png' %}" alt="logo" width="60px" height="auto">
+        </a>
+      </a>
+      <button class="navbar-toggler toggler-personal" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto py-4 py-lg-0">
+          <li class="nav-item">
+            <a href="{% url 'logout' %}" class="nav-link active">Cerrar sesión</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Productos</a>
+            <div class="dropdown-menu shadow-sm m-0" aria-labelledby="navbarDropdownMenuLink">
+              <a href="{% url 'productos' %}" class="dropdown-item ">Todo</a>
+              <a href="#" class="dropdown-item">Otro</a>
+              <a href="#" class="dropdown-item">Más</a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">¿Necesitas ayuda?</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Servicios</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              {{ user }}
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'panel_usuario' %}">Perfil</a></li>
+              <li><a class="dropdown-item" href="#">Mis compras</a></li>
+              <li><a class="dropdown-item" href="{% url 'pedidos' %}">Pedidos</a></li>
+              <li><a class="dropdown-item" href="{% url 'user_cart' %}">Wishlist</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">¿Necesitas ayuda?</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item logclass" href="{% url 'logout' %}">Salir de mi cuenta</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Contacto</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    {% endif %}
+    </ul>
+    </div>
+    </div>
+  </nav>
+
+
+  {% else %}
+
+  <!--invitado-->
+
+  <nav class="navbar navbar-expand-lg sticky-top p-0 px-4 px-lg-5 nb-custom-color">
+    <a href="#" class="navbar-brand d-flex align-items-center">
+      <h2 class="m-0 text-personal">
+        <img class="img-fluid me-2" src="{% static 'assets/images/logo.png' %}" alt="" style="width: 45px;">TeLoEnvio
+      </h2>
+    </a>
+    <button class="navbar-toggler toggler-personal" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto py-4 py-lg-0">
+        <li class="nav-item">
+          <a href="{% url 'login' %}" class="nav-link active">Iniciar sesión</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Productos</a>
+          <div class="dropdown-menu shadow-sm m-0" aria-labelledby="navbarDropdownMenuLink">
+            <a href="{% url 'productos' %}" class="dropdown-item">Todo</a>
+            <a href="#" class="dropdown-item">Otro</a>
+            <a href="#" class="dropdown-item">Más</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item ">¿Necesitas ayuda?</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Servicios</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Contacto</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'registro' %}" class="nav-link active">Regístrate</a>
+        </li>
+        <li class="nav-item dropdown">
+      </ul>
+    </div>
+  </nav>
+
+  {% endif %}
+  <!-- Navbar final-->
+  {% endblock navbar %}
+
+  {% block contenido %}
+  {% endblock contenido %}
+
+  {% block footer %}
+  <!-- Footer-->
+  <form id="sticky-footer" class="flex-shrink-0 py-4">
+    <div class="bg-light footer mt-5 pt-5 bg-custom-color">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-md-4">
+            <h1 class="text-personal mb-4"><img class="img-fluid me-2" src="#" alt="" style="width: 45px;">TeLoEnvio
+            </h1>
+            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ultricies mi quis hendrerit dolor magna eget est. Porttitor eget dolor morbi non
+              arcu.
+              Mus mauris vitae ultricies leo.
+            </span>
+          </div>
+
+          <div class="col-md-4">
+            <h5 class="mb-4">Boletín</h5>
+            <p>Sé parte de la comunidad de TeLoEnvio, suscríbete a nuestro boletín mensual</p>
+            <div class="position-relative">
+              <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text"
+                placeholder="Ingresa tu email">
+              <button type="button"
+                class="btn btn-personal py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Enviar</button>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4">
+            <h5 class="mb-4">Contáctanos</h5>
+            <p><i class="fa fa-map-marker-alt me-3"></i>Fake Street, 123</p>
+            <p><i class="fa fa-phone-alt me-3"></i>+54 9 9999999</p>
+            <p><i class="fa fa-envelope me-3"></i>info@teloenvio.com</p>
+          </div>
+          <div class="col-lg-3 col-md-4 d-flex justify-content-center">
+
+            <div class="d-flex">
+              <a class="btn btn-square rounded-circle me-1" href="{% static 'assets/images/twitter.png'%}"><i
+                  class="fab fa-twitter"></i></a>
+              <a class="btn btn-square rounded-circle me-1" href="{% static 'assets/images/fb.png'%}"><i
+                  class="fab fa-facebook-f"></i></a>
+              <a class="btn btn-square rounded-circle me-1" href="{% static 'assets/images/instagram.png'%}"><i
+                  class="fab fa-instagram"></i></a>
+              <a class="btn btn-square rounded-circle me-1" href="{% static 'assets/images/linkedin.png'%}"><i
+                  class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="container-fluid copyright">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+              &copy; <a href="#">TeLoEnvio</a>, All Right Reserved.
+            </div>
+            <div class="col-md-8 text-md-end">
+              <p>Cynthia Abarca</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </form>
+  <!-- Footer final-->
+  {% endblock footer %}
+
+</body>
+
+</html>

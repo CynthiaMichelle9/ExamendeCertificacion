@@ -1,0 +1,61 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block title %}Agregar Productos a la Wishlist{% endblock %} 
+
+{% block contenido %}
+
+<div class="row d-flex justify-content-center">
+  <div class="col-lg-6">
+    <form method="POST" class="form-container blog">
+      {% csrf_token %}
+      <div class="row align-items-center">
+        <div class="col-12 d-flex justify-content-center py-3">
+          <h3 class="titulo">Agregar productos a la wishlist</h3>
+        </div>
+      </div>
+
+      {{ form.as_p }}
+      
+      <button type="submit" class="btn botoncito btn-outline-personal">Agregar Producto</button>
+    </form>
+
+    <div class="form-container blog mt-4">
+      <h3 class="titulo">Productos agregados</h3>
+      <ul>
+        {% for producto_wishlist in productos_wishlist %}
+          <li>
+            {{ producto_wishlist.idproducto.nombre }} - Cantidad Deseada: {{ producto_wishlist.cantidad_deseada }}
+            <form method="post" action="{% url 'agregar_productos_wishlist' wishlist_id=wishlist.id %}">
+              {% csrf_token %}
+              <input type="hidden" name="delete" value="{{ producto_wishlist.id }}">
+              <button type="submit" class="btn botoncito-danger btn-outline-personal">Eliminar</button>
+            </form>
+          </li>
+        {% empty %}
+          <li>No se han agregado productos aún.</li>
+        {% endfor %}
+      </ul>
+
+      <p>Valor total productos: ${{ subtotal }}</p>
+      {% if user.is_staff %}
+      <form method="post" class="text-center">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center">
+          <input type="submit" name="regresar" class="btn-form btn btn-danger mr-2" value="Regresar">
+          <input type="submit" name="continuar" class="btn-form btn btn-primary ml-2" value="Continuar">
+        </div>
+      </form>
+      {% else %}
+      <form method="post" class="text-center">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center">
+          <input type="submit" name="guardar_wishlist" class="btn-form btn btn-primary ml-2" value="guardar">
+        </div>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

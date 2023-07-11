@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Creación de cliente externo{% endblock %}
+
+{% block contenido %}
+<div class="row d-flex justify-content-center py-3">
+  <h3 class="titulo">Ingresar nuevo pedido</h3>
+</div>
+
+<div class="row d-flex justify-content-center">
+  <div class="col-lg-6">
+    <form method="POST" class="form-container blog mb-4">
+      <div class="row align-items-center">
+        <div class="d-flex justify-content-center py-3">
+          <h3 class="titulo">Seleccionar cliente existente</h3>
+        </div>
+      </div>
+      {% csrf_token %}
+  
+      <select name="cliente_existente" class="form-select" id="cliente_existente">
+        <option selected disabled>Seleccionar cliente existente</option>
+        {% for cliente in clientes %}
+        <option value="{{ cliente.id }}">{{ cliente.nombre }} {{ cliente.apellido }}</option>
+        {% endfor %}
+      </select>
+      <div class="row pt-3">
+        <div class="col">
+          <h5>Crear wishlist para el cliente (requerido)</h5>
+          {{ wishlist_form.as_p }}
+        </div>
+      </div>
+      <div class="row pt-3">
+        <div class="col">
+          <input type="submit" class="btn botoncito btn-personal" value="Seleccionar">
+        </div>
+      </div>
+    </form>
+
+    <form method="POST" class="form-container blog mb-4">
+      {% csrf_token %}
+      <div class="row align-items-center">
+        <div class="d-flex justify-content-center py-3">
+          <h3 class="titulo">Ingresar nuevo cliente</h3>
+        </div>
+      </div>
+      {{ form.as_p }}
+      <div class="row pt-3">
+        <div class="col">
+          <h5>Crear wishlist para el cliente (requerido)</h5>
+          {{ wishlist_form.as_p }}
+        </div>
+      </div>
+      <div class="row pt-4">
+        <div class="col">
+          <input type="submit" class="btn botoncito btn-personal" value="Guardar">
+          <a href="{% url 'pedidos' %}" role="button" class="btn botoncito-danger btn-personal">Cancelar</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

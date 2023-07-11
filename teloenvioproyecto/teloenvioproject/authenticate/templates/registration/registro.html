@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block contenido %}
+
+<div class="form-contentl">
+    <div class="form-container blog">
+        <div class="form-group">
+        {% if formulario.errors %}
+        <div class="alert alert-danger" role="alert">
+            {{ formulario.errors }}
+        </div>
+        {% endif %} 
+        <div class="d-flex justify-content-center" style="padding: 10px;">
+        <h1 class="titulo">Sé parte de nuestra comunidad</h1>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+                <div class="m-2">
+                {{ formulario.username.label }}
+                {{ formulario.username }}
+                </div>
+                <div class="m-2">
+                {{ formulario.email.label }}
+                {{ formulario.email }}
+                 </div>
+                <div class="m-2">
+                {{ formulario.email2.label }}
+                {{ formulario.email2 }}
+
+AGREGAR NOMBRE COMPLLETO RUT DIRECCION
+
+
+                </div>
+            <div class="d-flex justify-content-center">
+                <br>
+            <button type="submit" class="btn btn-personal">Registrarme</button>
+            </div>
+            <div class="text-center mt-2">
+            <a id="registro" href="{% url 'login' %}">¿Ya tienes cuenta? <b>Inicia sesión</b></a>
+            </div>
+
+        </form>
+    </div>
+</div>
+</div>
+
+{% endblock %}

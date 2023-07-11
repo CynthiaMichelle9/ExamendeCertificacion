@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Agregar Producto{% endblock %}
+
+{% block contenido %}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-6">
+        <form class="card form-container blog" method="POST">{% csrf_token %}
+
+            <div class="d-flex justify-content-center py-3">
+                <h3 class="titulo">Agregar Producto</h3>
+            </div>
+
+            {{ form.as_p }}
+            
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-form botoncito">Guardar</button>
+                <a href="{% url 'gestionprod' %}" role="button" class="btn btn-form botoncito-danger bml-2">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

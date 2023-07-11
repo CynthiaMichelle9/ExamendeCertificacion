@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Crear Pedido{% endblock %}
+
+{% block contenido %}
+<div class="card">
+    <div class="card-body">
+        
+          <h3 class="titulo">Creación de pedido</h3>
+        <form class="row g-3" method="POST">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <label>Nombre Cliente</label>
+                <p>{{ cart.idcliente.nombre }} {{ cart.idcliente.apellido }}</p>
+            </div>
+            <div class="col-md-6">
+                <label>Rut Cliente</label>
+                <p>{{ cart.idcliente.rut }}</p>
+            </div>
+            <div class="col-md-6">
+                <label>Email Cliente</label>
+                <p>{{ cart.idcliente.email }}</p>
+            </div>
+            <div class="col-md-6">
+                <label>Fecha de entrega</label>
+                <span>{{ form.fecha_despacho }}</span>
+            </div>
+            <div class="col-md-6">
+                <label>Dirección de facturación</label>
+                <p>{{ cart.idcliente.direccion }}</p>
+            </div>
+            <div class="col-md-6">
+                <label>Dirección de despacho</label>
+                <p>{{ form.direccion_despacho }}</p>
+            </div>
+            <div class="col-md-6">
+                <label>Valor despacho</label>
+                <p>{{ form.valordespacho }}</p>
+            </div>
+            <div class="col-md-6">
+                <label>Subtotal (${{ subtotal|intcomma }})</label>
+                <p>{{ form.subtotal }}</p>
+            </div>
+            <div class="col-md-6">
+                <label>Total</label>
+                <p>{{ form.valortotal }}</p>
+            </div>
+            <div class="col-md-6">
+                <label>Medio de pago</label>
+                {{ form.metododepago }}
+            </div>
+            <div class="col-12">
+                <label>Estado del despacho</label>
+                {{ form.estadopedido }}
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="{% url 'pedidos' %}" class="btn btn-danger">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}

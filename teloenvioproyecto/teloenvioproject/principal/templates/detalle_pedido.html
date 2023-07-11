@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Detalle Pedido{% endblock %}
+
+{% block contenido %}
+
+<div class="row d-flex justify-content-center">
+  <div class="col-lg-6">
+    <form method="POST" class="form-container blog">
+      {% csrf_token %}
+      <div class="row align-items-center">
+        <div class="d-flex justify-content-center py-3">
+          {% if user.is_staff %}
+          <h3 class="titulo">Detalle del pedido # S{{pedido.id}}</h3>
+          {% else%}
+          <h3 class="titulo">Detalle del pedido # C{{pedido.id}}</h3>
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Nombre cliente:</label>
+          <p>{{ pedido.cart.idcliente.nombre }} {{ pedido.cart.idcliente.apellido }}</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Rut cliente:</label>
+          <p>{{ pedido.cart.idcliente.rut }}</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Correo electrónico:</label>
+          <p>{{ pedido.cart.idcliente.email }}</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Dirección de facturación:</label>
+          <p>{{ pedido.cart.idcliente.direccion }}</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Dirección de despacho:</label>
+          <p>{{ pedido.direccion_despacho }}</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Fecha de compra:</label>
+          <p>{{ pedido.fecha }}</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Fecha de despacho:</label>
+          <p>{{ pedido.fecha_despacho }}</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label destacado">Estado del despacho:</label>
+          {% if form %}
+            <p>{{ form.estadopedido }}</p>
+          {% else %}
+            <p>{{ pedido.estadopedido }}</p>
+          {% endif %}
+        </div>
+        {% if detalle %}
+          <div class="table-responsive pt-3">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Valor unitario</th>
+                  <th>Valor total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in detalle %}
+                <tr>
+                  <td>{{ item.productos }}</td>
+                  <td>{{ item.cantidad }}</td>
+                  <td>${{ item.precio|intcomma}}</td>
+                  <td>${{ item.cantidad_valor|intcomma}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% endif %}
+      </div>
+      <div class="col-12 pt-3">
+        {% if form %}
+          <button type="submit" class="btn btn-primary"> Guardar </button>
+          <a href="{% url 'pedidos' %}" class="btn btn-danger">Pedidos</a>
+        {% else %}
+          <a href="{% url 'pedidos' %}" class="btn btn-light btn-botoncito">Mis pedidos</a>
+        {% endif %}
+      </div>
+    </form>
+    {% if pedido.estadopedido == "Pendiente" %}
+      <div class="row d-flex justify-content-center pt-3">
+        <form class="col-12" action="{% url 'eliminar_pedido' pedido.id %}" method="POST" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger" value="Eliminar"
+          onclick="return confirm('¿Estas seguro de cancelar el pedido?');">Cancelar pedido</button>
+        </form>
+      </div>
+    {% endif %}
+    {% if pedido.estadopedido == 'En preparacion' %}
+      <div class="row d-flex justify-content-center pt-3">
+        <form class="col-12" action="{% url 'eliminar_pedido' pedido.id %}" method="POST" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger" value="Eliminar"
+          onclick="return confirm('¿Estas seguro de cancelar el pedido?');">Cancelar pedido</button>
+        </form>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+
+{% endblock %}

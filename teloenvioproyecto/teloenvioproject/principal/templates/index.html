@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block contenido %}
+
+{% if user.is_authenticated %}
+
+<!-- Todos los usuarios logeados-->
+<div class="d-flex justify-content-center">
+    <img class="img-titulo" src="{% static 'assets/images/logohome.png' %}" alt="teloenvio">
+</div>
+<div class="welcome-message d-flex justify-content-center">
+    <h1 class="titulo">¡Que gusto verte {{ user }}!</h1>
+</div>
+
+{% if user.is_active and user.is_staff %}
+
+<!--Usuarios logeados (staff)-->
+
+<div class="card-group-container">
+    <div class="card-group d-flex gap-4">
+        <div class="card card-custom">
+            <a class="dropdown-item" href="{% url 'pedidos' %}">
+                <img src="{% static 'assets/images/logistica.jpg' %}" class="card-img-top img-fluid"
+                    alt="Pedidos">
+            </a>
+        </div>
+        <div class="card card-custom">
+            <a class="dropdown-item" href="{% url 'gestionprod' %}">
+                <img src="{% static 'assets/images/truck.jpg' %}" class="card-img-top img-fluid" alt="Productos">
+            </a>
+        </div>
+        <div class="card card-custom">
+            <a class="dropdown-item" href="{% url 'panel_usuario' %}">
+                <img src="{% static 'assets/images/pc.jpg' %}" class="card-img-top img-fluid" alt="Personas">
+            </a>
+        </div>
+    </div>
+</div>
+
+
+{% else %}
+
+<!--Usuarios logeados (usuario comun)-->
+<div class="">
+<div>
+    <h2 class="titulo">Últimos productos agregados</h2>
+</div>
+</div>
+<div id="carouselExampleCaptions" class="carousel slide">
+    <div class="carousel-inner">
+        <div class="carousel-item active my-auto ">
+            <img src="{% static 'assets/images/user_img/sheep.jpg' %}" class="carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="texto-carousel">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque modi, cumque
+                    voluptate quidem nihil voluptatum, ea ex numquam necessitatibus recusandae consectetur blanditiis
+                    dolor optio velit molestiae quasi consequuntur esse nulla.</p>
+            </div>
+        </div>
+        <div class="carousel-item my-auto">
+            <img src="{% static 'assets/images/user_img/crafts.jpg' %}" class="carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="texto-carousel">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur at sint
+                    nesciunt, distinctio dolor assumenda tempora alias soluta iste?</p>
+            </div>
+        </div>
+        <div class="carousel-item my-auto ">
+            <img src="{% static 'assets/images/user_img/breads.jpg' %}" class="carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="texto-carousel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis qui sequi odio,
+                    adipisci quod culpa excepturi rerum possimus natus blanditiis?</p>
+            </div>
+        </div>
+        <div class="carousel-item my-auto ">
+            <img src="{% static 'assets/images/user_img/burano.jpg' %}" class="carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="texto-carousel">Lorem ipsum dolor sit amet consectetur adipisicing elit. At nam distinctio
+                    explicabo mollitia accusamus id aspernatur exercitationem. Quisquam consequuntur corrupti quibusdam
+                    maxime accusamus tenetur eaque ipsam ipsum, labore aliquam officiis laborum reiciendis.</p>
+            </div>
+        </div>
+        <div class="carousel-item my-auto ">
+            <img src="{% static 'assets/images/user_img/food.jpg' %}" class="carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="texto-carousel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, officiis.
+                </p>
+
+            </div>
+        </div>
+        <div class="carousel-item my-auto ">
+            <img src="{% static 'assets/images/user_img/knitting.jpg' %}" class="carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="texto-carousel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, officiis.
+                </p>
+            </div>
+        </div>
+        <div class="carousel-item my-auto">
+            <img src="{% static 'assets/images/user_img/tart.jpg' %}" class="carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="texto-carousel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, officiis.
+                </p>
+            </div>
+        </div>
+        <div class="carousel-item my-auto ">
+            <img src="{% static 'assets/images/user_img/gift.jpg' %}" class="carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="texto-carousel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab,
+                    officiis.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+</button>
+</div>
+
+{% endif %}
+
+{% else %}
+
+<!--Sin conexión-->
+
+<div id="carouselExampleCaptions" class="carousel slide">
+    <div class="carousel-inner">
+        <div class="carousel-item active my-auto">
+            <img src="{% static 'assets/images/noticias/beer.jpg' %}" class="carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="texto-carousel">Descubre la tecnología más innovadora. Encuentra smartphones,
+                    laptops y más en nuestra tienda en línea. Explora nuestro catálogo ahora.</p>
+            </div>
+        </div>
+        <div class="carousel-item my-auto">
+            <img src="{% static 'assets/images/noticias/painting.jpg' %}" class="carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="texto-carousel">Productos tecnológicos de calidad. Trabajamos con marcas
+                    reconocidas y ofrecemos asesoramiento experto. Descubre nuestras ofertas hoy.</p>
+            </div>
+        </div>
+        <div class="carousel-item my-auto">
+            <img src="{% static 'assets/images/noticias/pottery.jpg' %}" class="carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="texto-carousel">Lo último en tecnología a precios asequibles. Dispositivos
+                    inteligentes, accesorios y envío garantizado. Haz clic y aprovecha nuestras ofertas.</p>
+            </div>
+        </div>
+        <div class="carousel-item my-auto">
+            <img src="{% static 'assets/images/noticias/wire-sculpture.jpg' %}" class="carousel-img" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="texto-carousel">La tecnología que necesitas, al alcance de tu mano. Explora
+                    nuestra página y encuentra los mejores dispositivos y accesorios tecnológicos. ¡Mejora
+                    tu vida con la última innovación!</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% load humanize %}
+
+{% block title %}Gestión de productos{% endblock %} 
+
+{% block contenido %}
+
+  <div class="row align-items-center">
+    <div class="col-12 d-flex justify-content-end py-4">
+      <a href="{% url 'nuevo_producto' %}" class="btn botoncito btn-outline-personal" role="button">Agregar Producto</a>
+    </div>    
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Valor Unitario</th>
+          <th>Descripción</th>
+          <th>Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for producto in productos %}
+        <tr>
+          <td>{{ producto.id }}</td>
+          <td>
+            <img src="media/images/producto_default.png" width="100" height="auto">
+          </td>
+          <td>{{ producto.nombre }}</td>
+          <td class="valor-unitario text-center" >${{ producto.precio|intcomma }}</td>
+          <td>{{ producto.descripcion }}</td>
+          <td class="text-center">{{ producto.stock }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6">
+            <div class="alert alert-danger" role="alert">
+              No hay productos disponibles para esta vista.
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}
